@@ -14,6 +14,9 @@ public class Team {
     @Column(length = 20)
     private String teamName;
 
+    @Transient
+    private Integer score;
+
     public Boolean deleted;
 
 
@@ -51,5 +54,13 @@ public class Team {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }

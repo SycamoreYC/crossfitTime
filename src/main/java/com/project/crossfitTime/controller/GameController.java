@@ -1,13 +1,10 @@
 package com.project.crossfitTime.controller;
 
 import com.project.crossfitTime.domain.*;
-import com.project.crossfitTime.repository.EventRepository;
 import com.project.crossfitTime.repository.GameRepository;
 import com.project.crossfitTime.repository.RecordRepository;
-import com.project.crossfitTime.repository.TeamRepository;
 import com.project.crossfitTime.response.GameResponse;
 import com.project.crossfitTime.response.GameResult;
-import com.project.crossfitTime.response.TeamResponse;
 import com.project.crossfitTime.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +18,6 @@ public class GameController {
 
     @Autowired
     private GameRepository gameRepository;
-    @Autowired
-    private EventRepository eventRepository;
-    @Autowired
-    private TeamRepository teamRepository;
     @Autowired
     private RecordRepository recordRepository;
     @Autowired
@@ -183,5 +176,14 @@ public class GameController {
         record.setScore(newRecord.getScore());
         recordRepository.save(record);
         return record;
+    }
+
+    @GetMapping(path = "/result/{gameId}")
+    public @ResponseBody
+    Map<Integer,List<Record>> searchResult(
+            @PathVariable(name = "gameId") Integer gameId
+    ) {
+        List<Record> records = recordRepository.findByGameId(gameId);
+        return records.stream().collect(Collectors.groupingBy(Record::getEventId));
     }
 }
