@@ -1,0 +1,28 @@
+type Query {
+  gameById(id: ID): Game
+}
+
+type QueryGame {
+    games: [Game]
+}
+
+type Game {
+  id: ID
+  gameName: String
+  startDate: String
+  endDate: String
+  description: String
+  events: [Event]
+  teams: [Team]
+}
+
+type Event {
+  id: ID
+  eventDate: String
+  eventContent: String
+}
+
+type Team {
+    id: ID
+    teamName: String
+}

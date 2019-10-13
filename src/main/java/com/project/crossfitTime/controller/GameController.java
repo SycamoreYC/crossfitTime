@@ -126,22 +126,7 @@ public class GameController {
     @GetMapping
     public @ResponseBody
     List<GameResponse> getAllGames() {
-
-        List<Record> records = new ArrayList<>();
-        recordRepository.findAll().forEach(records::add);
-        Map<Integer,List<Record>> gameMap  = records.stream().collect(Collectors.groupingBy(Record::getGameId));
-
-        List<GameResponse> games = new ArrayList<>();
-        gameRepository.findAll().forEach(game -> {
-            GameResponse gameResponse = GameResponse.from(gameService.getRealGame(game));
-
-            boolean canEdit = gameMap.get(game.getId()) == null;
-            gameResponse.setCanEdit(canEdit);
-
-            games.add(gameResponse);
-        });
-
-        return games;
+        return gameService.getAllGames();
     }
 
     @PostMapping(path = "/saveScore")

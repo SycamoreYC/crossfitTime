@@ -1,0 +1,34 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+}
+
+type Event {
+    eventContent: String
+    eventDate: String
+    id: ID
+}
+
+type Game {
+    description: String
+    endDate: String
+    events: [Event]
+    gameName: String
+    id: ID
+    startDate: String
+    teams: [Team]
+}
+
+type Query {
+    gameById(id: ID): Game
+}
+
+type QueryGame {
+    games: [Game]
+}
+
+type Team {
+    id: ID
+    teamName: String
+}
